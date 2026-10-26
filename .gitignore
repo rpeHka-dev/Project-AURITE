@@ -149,3 +149,6 @@ UserSettings/EditorUserSettings.asset.meta
 
 # Файлы профилей Unity (если не используете)
 Assets/DefaultVolumeProfile.asset*
+
+# Unity upgrade logs
+UpgradeLog.htm
