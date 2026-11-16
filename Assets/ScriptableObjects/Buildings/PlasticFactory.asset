@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
+  m_Name: PlasticFactory
+  m_EditorClassIdentifier:
+  buildingName: Фабрика пластика
+  prefab: {fileID: 0}
+  icon: {fileID: 0}
+  plasticCost: 45
+  auriteCost: 25
+  batteryCost: 0
+  coolantCost: 1
+  maxWorkers: 0
+  conductsHeat: 1
+  productionPerWorker: 15
+  producedResource: 1
+  hexColor: {r: 0.25, g: 0.45, b: 0.9, a: 1}
+  description:

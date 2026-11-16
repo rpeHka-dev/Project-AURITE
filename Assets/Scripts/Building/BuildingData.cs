@@ -1,5 +1,14 @@
 using UnityEngine;
 
+public enum ResourceType
+{
+    None,
+    Plastic,
+    Aurite,
+    Batteries,
+    Coolant
+}
+
 [CreateAssetMenu(fileName = "NewBuilding", menuName = "Aurite/BuildingData")]
 public class BuildingData : ScriptableObject
 {
@@ -18,6 +27,10 @@ public class BuildingData : ScriptableObject
     public int maxWorkers;
     public bool conductsHeat = true;
     public float productionPerWorker; // для шахт
+    public ResourceType producedResource; // какой ресурс добывается каждый день
+
+    [Header("Отображение")]
+    public Color hexColor = Color.white; // цвет гекса с этим зданием
 
 
     [Header("Описание")]

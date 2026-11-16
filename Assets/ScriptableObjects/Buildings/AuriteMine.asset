@@ -11,8 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
   m_Name: AuriteMine
-  m_EditorClassIdentifier: 
-  buildingName: Aurite Mine
+  m_EditorClassIdentifier:
+  buildingName: Шахта аурита
   prefab: {fileID: 0}
   icon: {fileID: 0}
   plasticCost: 30
@@ -22,4 +22,6 @@ MonoBehaviour:
   maxWorkers: 10
   conductsHeat: 1
   productionPerWorker: 10
-  description: 
+  producedResource: 2
+  hexColor: {r: 0.35, g: 0.35, b: 0.38, a: 1}
+  description:
