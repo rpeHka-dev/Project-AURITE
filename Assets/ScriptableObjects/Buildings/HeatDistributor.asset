@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
-  m_Name: Road
-  m_EditorClassIdentifier: 
-  buildingName: Road
+  m_Name: HeatDistributor
+  m_EditorClassIdentifier:
+  buildingName: Распределитель тепла
   prefab: {fileID: 0}
   icon: {fileID: 0}
-  plasticCost: 10
-  auriteCost: 0
-  batteryCost: 0
+  plasticCost: 40
+  auriteCost: 20
+  batteryCost: 5
   coolantCost: 0
   maxWorkers: 0
-  conductsHeat: 0
+  conductsHeat: 1
   productionPerWorker: 0
-  description: 
+  producedResource: 0
+  hexColor: {r: 0.95, g: 0.45, b: 0.2, a: 1}
+  description:
