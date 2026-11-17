@@ -27,10 +27,48 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
     {
         buildingData = building;
         UpdateColor();
+
+        // Если это барак — увеличиваем число рабочих
+        if (building.buildingName == "Барак")
+        {
+            ResourceManager.Instance.AddWorkers(30);
+            Debug.Log("Построен барак. Рабочие +30");
+        }
+
+        // Склад увеличивает лимиты
+        if (building.storageBonusPlastic > 0 || building.storageBonusAurite > 0 ||
+            building.storageBonusBatteries > 0 || building.storageBonusCoolant > 0)
+        {
+            ResourceManager.Instance.AddStorageCapacity(
+                building.storageBonusPlastic,
+                building.storageBonusAurite,
+                building.storageBonusBatteries,
+                building.storageBonusCoolant
+            );
+        }
     }
 
     public void RemoveBuilding()
     {
+        if (buildingData != null)
+        {
+            if (buildingData.buildingName == "Барак")
+            {
+                ResourceManager.Instance.AddWorkers(-30);
+            }
+
+            if (buildingData.storageBonusPlastic > 0 || buildingData.storageBonusAurite > 0 ||
+                buildingData.storageBonusBatteries > 0 || buildingData.storageBonusCoolant > 0)
+            {
+                ResourceManager.Instance.RemoveStorageCapacity(
+                    buildingData.storageBonusPlastic,
+                    buildingData.storageBonusAurite,
+                    buildingData.storageBonusBatteries,
+                    buildingData.storageBonusCoolant
+                );
+            }
+        }
+
         buildingData = null;
         UpdateColor();
     }
