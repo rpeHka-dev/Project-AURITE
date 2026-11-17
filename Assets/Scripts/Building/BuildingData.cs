@@ -22,6 +22,7 @@ public class BuildingData : ScriptableObject
     public int auriteCost;
     public int batteryCost;
     public int coolantCost;
+    public int workerCost;
 
     [Header("Характеристики")]
     public int maxWorkers;
@@ -29,9 +30,16 @@ public class BuildingData : ScriptableObject
     public float productionPerWorker; // для шахт
     public ResourceType producedResource; // какой ресурс добывается каждый день
 
+    
+    [Header("Бонус склада (только для склада)")]
+    public int storageBonusPlastic = 50;
+    public int storageBonusAurite = 100;
+    public int storageBonusBatteries = 20;
+    public int storageBonusCoolant = 10;
+    
+
     [Header("Отображение")]
     public Color hexColor = Color.white; // цвет гекса с этим зданием
-
 
     [Header("Описание")]
     [TextArea(2, 4)]
