@@ -11,17 +11,22 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
   m_Name: PlasticFactory
-  m_EditorClassIdentifier:
-  buildingName: Фабрика пластика
+  m_EditorClassIdentifier: 
+  buildingName: "\u0424\u0430\u0431\u0440\u0438\u043A\u0430 \u043F\u043B\u0430\u0441\u0442\u0438\u043A\u0430"
   prefab: {fileID: 0}
   icon: {fileID: 0}
   plasticCost: 45
   auriteCost: 25
   batteryCost: 0
   coolantCost: 1
+  workerCost: 10
   maxWorkers: 0
   conductsHeat: 1
   productionPerWorker: 15
   producedResource: 1
+  storageBonusPlastic: 50
+  storageBonusAurite: 100
+  storageBonusBatteries: 20
+  storageBonusCoolant: 10
   hexColor: {r: 0.25, g: 0.45, b: 0.9, a: 1}
-  description:
+  description: 

@@ -11,17 +11,22 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
   m_Name: CoolantFactory
-  m_EditorClassIdentifier:
-  buildingName: Фабрика теплоносителя
+  m_EditorClassIdentifier: 
+  buildingName: "\u0424\u0430\u0431\u0440\u0438\u043A\u0430 \u0442\u0435\u043F\u043B\u043E\u043D\u043E\u0441\u0438\u0442\u0435\u043B\u044F"
   prefab: {fileID: 0}
   icon: {fileID: 0}
   plasticCost: 50
   auriteCost: 30
   batteryCost: 10
   coolantCost: 0
+  workerCost: 10
   maxWorkers: 0
   conductsHeat: 1
   productionPerWorker: 1
   producedResource: 4
+  storageBonusPlastic: 50
+  storageBonusAurite: 100
+  storageBonusBatteries: 20
+  storageBonusCoolant: 10
   hexColor: {r: 0.3, g: 0.85, b: 0.9, a: 1}
-  description:
+  description: 

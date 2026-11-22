@@ -8,7 +8,7 @@ public class ResourceManager : MonoBehaviour
     public int plastic = 200;
     public int aurite = 300;
     public int batteries = 50;
-    public int coolant = 3;
+    public int coolant = 5;
     public int workers = 200;
 
     [Header("Базовые лимиты (стартовые)")]

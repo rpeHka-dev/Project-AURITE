@@ -11,17 +11,23 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
   m_Name: HeatDistributor
-  m_EditorClassIdentifier:
-  buildingName: Распределитель тепла
+  m_EditorClassIdentifier: 
+  buildingName: "\u0420\u0430\u0441\u043F\u0440\u0435\u0434\u0435\u043B\u0438\u0442\u0435\u043B\u044C
+    \u0442\u0435\u043F\u043B\u0430"
   prefab: {fileID: 0}
   icon: {fileID: 0}
   plasticCost: 40
   auriteCost: 20
   batteryCost: 5
-  coolantCost: 0
+  coolantCost: 5
+  workerCost: 5
   maxWorkers: 0
   conductsHeat: 1
   productionPerWorker: 0
   producedResource: 0
+  storageBonusPlastic: 50
+  storageBonusAurite: 100
+  storageBonusBatteries: 20
+  storageBonusCoolant: 10
   hexColor: {r: 0.95, g: 0.45, b: 0.2, a: 1}
-  description:
+  description: 

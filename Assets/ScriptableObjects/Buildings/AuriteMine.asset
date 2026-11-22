@@ -11,17 +11,22 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fffeac78349e1d4e858f173f8bb4359, type: 3}
   m_Name: AuriteMine
-  m_EditorClassIdentifier:
-  buildingName: Шахта аурита
+  m_EditorClassIdentifier: 
+  buildingName: "\u0428\u0430\u0445\u0442\u0430 \u0430\u0443\u0440\u0438\u0442\u0430"
   prefab: {fileID: 0}
   icon: {fileID: 0}
   plasticCost: 30
   auriteCost: 40
   batteryCost: 0
   coolantCost: 0
+  workerCost: 15
   maxWorkers: 10
   conductsHeat: 1
   productionPerWorker: 10
   producedResource: 2
+  storageBonusPlastic: 50
+  storageBonusAurite: 100
+  storageBonusBatteries: 20
+  storageBonusCoolant: 10
   hexColor: {r: 0.35, g: 0.35, b: 0.38, a: 1}
-  description:
+  description: 
