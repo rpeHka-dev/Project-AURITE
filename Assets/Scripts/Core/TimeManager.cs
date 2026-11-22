@@ -8,8 +8,12 @@ public class TimeManager : MonoBehaviour
     [Tooltip("Сколько реальных секунд длится 1 игровой день")]
     public float secondsPerDay = 5f;
 
+    [Tooltip("Сколько дней в игровом месяце")]
+    public int daysPerMonth = 30;
+
     [Header("Текущее время")]
     public int currentDay = 1;
+    public int currentMonth = 1;
 
     [Header("Управление")]
     public bool IsPaused { get; private set; } = false;
@@ -17,6 +21,7 @@ public class TimeManager : MonoBehaviour
 
     [Header("События")]
     public System.Action OnDayPassed;
+    public System.Action OnMonthPassed; // <--- ВОЗВРАЩАЕМ
     public System.Action OnTimeChanged;
 
     private float dayTimer = 0f;
@@ -46,10 +51,20 @@ public class TimeManager : MonoBehaviour
     {
         currentDay++;
 
+        // Проверяем, не прошёл ли месяц
+        if (currentDay > daysPerMonth)
+        {
+            currentDay = 1;
+            currentMonth++;
+
+            OnMonthPassed?.Invoke();
+            Debug.Log($"=== Прошёл месяц: {currentMonth} ===");
+        }
+
         OnDayPassed?.Invoke();
         OnTimeChanged?.Invoke();
 
-        Debug.Log($"День {currentDay}");
+        Debug.Log($"День {currentDay}, месяц {currentMonth}");
     }
 
     public void TogglePause()
