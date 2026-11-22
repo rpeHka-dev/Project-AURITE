@@ -15,13 +15,17 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
     private Color terrainColor;
     private bool isHovered;
 
-    // Цвета земли: в тёплом центре грунт, дальше иней и снег
-    static readonly Color ThawedGround = new Color(0.52f, 0.48f, 0.43f);
-    static readonly Color Frost = new Color(0.72f, 0.78f, 0.84f);
-    static readonly Color Snow = new Color(0.90f, 0.94f, 0.98f);
-   
+    // Цвета температуры
+    static readonly Color TempMinus2 = new Color(0.0f, 0.2f, 0.4f);   // Тёмно-синий
+    static readonly Color TempMinus1 = new Color(0.0f, 0.4f, 0.8f);   // Голубой
+    static readonly Color TempZero = new Color(0.6f, 0.8f, 1.0f);  // Снежный
+    static readonly Color TempPlus1 = new Color(1.0f, 0.8f, 0.6f);    // Светло-оранжевый
+    static readonly Color TempPlus2 = new Color(1.0f, 0.576f, 0.2f);    // Оранжевый
+
     // Температура гекса (-2, -1, 0, 1, 2)
     public int temperature;
+
+    private const int DistributorRadius = 2;
 
     public void PlaceBuilding(BuildingData building)
     {
@@ -46,6 +50,13 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
                 building.storageBonusCoolant
             );
         }
+
+        // === РАСПРЕДЕЛИТЕЛЬ ТЕПЛА ===
+        // Если построен распределитель — пересчитываем температуру у всех гексов
+        if (building.buildingName == "Распределитель тепла" || building.buildingName == "HeatDistributor")
+        {
+            UpdateAllTemperatures();
+        }
     }
 
     public void RemoveBuilding()
@@ -67,10 +78,62 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
                     buildingData.storageBonusCoolant
                 );
             }
+
+            // === РАСПРЕДЕЛИТЕЛЬ ТЕПЛА ===
+            // Если сносим распределитель — пересчитываем температуру у всех гексов
+            if (buildingData.buildingName == "Распределитель тепла" || buildingData.buildingName == "HeatDistributor")
+            {
+                buildingData = null;
+                UpdateAllTemperatures();
+                UpdateColor();
+                return;
+            }
         }
 
         buildingData = null;
         UpdateColor();
+    }
+
+    // Пересчитывает температуру для ВСЕХ гексов на сцене
+    void UpdateAllTemperatures()
+    {
+        HexCell[] allCells = FindObjectsByType<HexCell>(FindObjectsSortMode.None);
+        foreach (HexCell cell in allCells)
+        {
+            cell.CalculateTemperature();
+            cell.ApplyDistributorBonus();
+            cell.terrainColor = cell.GetTerrainColor();
+            cell.UpdateColor();
+        }
+    }
+
+    // Применяет бонус от всех распределителей на карте
+    void ApplyDistributorBonus()
+    {
+        HexCell[] allCells = FindObjectsByType<HexCell>(FindObjectsSortMode.None);
+
+        foreach (HexCell cell in allCells)
+        {
+            if (cell.buildingData == null) continue;
+
+            if (cell.buildingData.buildingName == "Распределитель тепла" ||
+                cell.buildingData.buildingName == "HeatDistributor")
+            {
+                int dist = (Mathf.Abs(Q - cell.Q) + Mathf.Abs(R - cell.R) + Mathf.Abs(S - cell.S)) / 2;
+
+                if (dist == 1)
+                {
+                    temperature += 2; // В радиусе 1 — +2
+                }
+                else if (dist == 2)
+                {
+                    temperature += 1; // В радиусе 2 — +1
+                }
+            }
+        }
+
+        // Ограничиваем температуру от -2 до 2
+        temperature = Mathf.Clamp(temperature, -2, 2);
     }
 
     public void Setup(int q, int r, int s)
@@ -80,7 +143,7 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
         S = s;
         transform.position = HexMetrics.GetPositionFromCube(q, r, s);
         gameObject.name = $"HexCell_{q}_{r}_{s}";
-       
+
         // Вызываем расчет температуры сразу при создании гекса
         CalculateTemperature();
 
@@ -94,12 +157,15 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
     Color GetTerrainColor()
     {
         Color color;
-        if (temperature >= 2)
-            color = ThawedGround;
-        else if (temperature >= 0)
-            color = Frost;
-        else
-            color = Snow;
+        switch (temperature)
+        {
+            case -2: color = TempMinus2; break;
+            case -1: color = TempMinus1; break;
+            case 0: color = TempZero; break;
+            case 1: color = TempPlus1; break;
+            case 2: color = TempPlus2; break;
+            default: color = TempZero; break;
+        }
 
         // Немного меняем яркость, чтобы гексы не были одинаковыми
         float noise = Mathf.PerlinNoise(Q * 0.7f + 10f, R * 0.7f + 10f) * 0.1f - 0.05f;
@@ -133,24 +199,19 @@ public class HexCell : MonoBehaviour, IPointerClickHandler
     {
         int distance = (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
 
-        if (distance <= 2)
+        if (distance <= 1)
             temperature = 2;
-        else if (distance == 3)
+        else if (distance == 2)
             temperature = 1;
         else
             temperature = -2;
     }
 
     // --- ЗАГЛУШКА ДЛЯ РАСПРЕДЕЛИТЕЛЯ ТЕПЛА ---
-    // Этот метод будет вызываться при постройке распределителя тепла.
-    // Пока он просто увеличивает температуру текущего гекса на 1.
+    // Оставлена для совместимости, но теперь использует новую логику
     public void IncreaseTemperatureFromDistributor()
     {
-        // TODO: Реализовать полноценную логику (увеличение температуры в радиусе, проверка на дубли и т.д.)
-        temperature += 1;
-       
-        // Пока просто выводим в консоль для проверки
-        Debug.Log($"Температура гекса ({Q},{R},{S}) увеличена распределителем до {temperature}");
+        UpdateAllTemperatures();
     }
 
     private void OnMouseDown()
