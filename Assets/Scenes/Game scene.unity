@@ -1825,7 +1825,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsPerDay: 5
+  daysPerMonth: 30
   currentDay: 1
+  currentMonth: 1
 --- !u!114 &946259828
 MonoBehaviour:
   m_ObjectHideFlags: 0
